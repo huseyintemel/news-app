@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "51a2d5077567b257ac1f227b6883c4ff1d7a491d"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "c1f60c63f356d364f4284ba82961acbe7de79bcc",
+        "version" : "7.8.1"
+      }
+    }
+  ],
+  "version" : 2
+}
