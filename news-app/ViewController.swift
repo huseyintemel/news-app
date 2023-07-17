@@ -17,6 +17,9 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         newsTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(newsTableView)
+        newsTableView.rowHeight = UITableView.automaticDimension
+        newsTableView.rowHeight = 300
+        newsTableView.separatorInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         setNewsTableConstraints()
        
         Task {
@@ -24,7 +27,7 @@ class ViewController: UIViewController {
         }
         
         newsTableView.dataSource = self
-        newsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        newsTableView.register(NewsTableViewCell.self, forCellReuseIdentifier: "NewsTableCell")
     }
 
     
@@ -38,14 +41,14 @@ class ViewController: UIViewController {
     }
     
     func fetchData() async {
-        let url = "https://newsapi.org/v2/top-headlines?country=tr&apiKey=7054e46161114bafaaeb518f3ddfaf09"
+        let url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=7054e46161114bafaaeb518f3ddfaf09"
         NetworkManager.shared.request(News.self, url: url) { result in
             switch result {
             case .success(let newsAPIResponse):
                 // Access the articles
                 self.articles = newsAPIResponse.articles
                 self.newsTableView.reloadData()
-                print(self.articles.count)
+                print(self.articles)
             case .failure(let error):
                 // Handle the error
                 print("Request failed with error: \(error)")
@@ -63,11 +66,15 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableCell", for: indexPath) as! NewsTableViewCell
         
-        cell.textLabel?.text = articles[0].title
+        let article = article(at: indexPath.row)
+        cell.set(article: article)
         
         return cell
     }
     
+    func article(at index: Int) -> Article {
+           return articles[index]
+    }
 }
