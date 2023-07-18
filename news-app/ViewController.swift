@@ -18,8 +18,8 @@ class ViewController: UIViewController {
         newsTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(newsTableView)
         newsTableView.rowHeight = UITableView.automaticDimension
-        newsTableView.rowHeight = 300
-        newsTableView.separatorInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        newsTableView.rowHeight = 400
+        newsTableView.separatorInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         setNewsTableConstraints()
        
         Task {
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
             newsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             newsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             newsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            newsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            newsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
                 // Access the articles
                 self.articles = newsAPIResponse.articles
                 self.newsTableView.reloadData()
-                print(self.articles)
+                print(self.articles.count)
             case .failure(let error):
                 // Handle the error
                 print("Request failed with error: \(error)")

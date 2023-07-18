@@ -22,11 +22,39 @@ class NewsTableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var timeLabel : UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+    
+        return label
+    }()
+    
+    lazy var sourceLabel : UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var labelStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(newsImage)
         addSubview(titleLabel)
+        addSubview(labelStack)
+        addLabelStackSubViews()
         configureNewsImage()
         setConstraints()
     }
@@ -35,13 +63,18 @@ class NewsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(article: Article){
+    func set(article: Article) {
         guard let imageUrl = article.urlToImage else {
             print("Error")
+            //newsImage.image = UIImage(named: "placeholder-news.jpg")
             return
         }
         ImageManager.shared.setImage(url: imageUrl, imageView: newsImage)
-        titleLabel.text = article.title
+        let editedTitleLabel = StringHelper.shared.removeStringAfterDash(article.title)
+        titleLabel.text = editedTitleLabel
+        let formattedTime = article.publishedAt.getTimeAgo()
+        timeLabel.text = formattedTime
+        sourceLabel.text = article.source.name
     }
     
     func configureNewsImage() {
@@ -50,17 +83,30 @@ class NewsTableViewCell: UITableViewCell {
         newsImage.clipsToBounds = true
     }
     
+    func addLabelStackSubViews() {
+        labelStack.addArrangedSubview(timeLabel)
+        labelStack.addArrangedSubview(sourceLabel)
+    }
+    
     func setConstraints() {
         NSLayoutConstraint.activate([
-            newsImage.topAnchor.constraint(equalTo: topAnchor,constant: 8),
+            //newsImage
+            newsImage.topAnchor.constraint(equalTo: topAnchor,constant: 16),
             newsImage.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -8),
             newsImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,constant: 8),
             newsImage.heightAnchor.constraint(equalToConstant: 240),
             
+            //titleLabel
             titleLabel.topAnchor.constraint(equalTo: newsImage.bottomAnchor,constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -8),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -12)
+            
+            //labelStack
+            labelStack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,constant: 8),
+            labelStack.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 8),
+            labelStack.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -8),
+            labelStack.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -16)
+
         ])
     }
 }

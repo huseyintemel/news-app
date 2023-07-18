@@ -8,6 +8,7 @@
 import Foundation
 
 struct Article: Decodable {
+    let source: Source
     let author: String?
     let title: String
     let description: String?
@@ -15,4 +16,9 @@ struct Article: Decodable {
     let urlToImage: String?
     let publishedAt: String
     let content: String?
+}
+
+struct Source: Decodable {
+    let id: String?
+    let name: String
 }
