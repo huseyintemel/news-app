@@ -70,8 +70,7 @@ class NewsTableViewCell: UITableViewCell {
             return
         }
         ImageManager.shared.setImage(url: imageUrl, imageView: newsImage)
-        let editedTitleLabel = StringHelper.shared.removeStringAfterDash(article.title)
-        titleLabel.text = editedTitleLabel
+        titleLabel.text = article.title
         let formattedTime = article.publishedAt.getTimeAgo()
         timeLabel.text = formattedTime
         sourceLabel.text = article.source.name
