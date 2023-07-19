@@ -21,6 +21,7 @@
 		1D71E9EF2A612E320007D505 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71E9EE2A612E320007D505 /* News.swift */; };
 		1D71E9F12A6130450007D505 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71E9F02A6130450007D505 /* Article.swift */; };
 		1D805EE12A667AC2002D2885 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D805EE02A667AC2002D2885 /* NewsViewModel.swift */; };
+		1D974DF42A67D3F4005BE7C1 /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D974DF32A67D3F4005BE7C1 /* NewsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		1D71E9EE2A612E320007D505 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		1D71E9F02A6130450007D505 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		1D805EE02A667AC2002D2885 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		1D974DF32A67D3F4005BE7C1 /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				1D0EDFF82A654EBF004868CD /* NewsTableViewCell.swift */,
+				1D974DF32A67D3F4005BE7C1 /* NewsCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				1D71E9E62A61281D0007D505 /* NetworkManager.swift in Sources */,
 				1D71E9D52A6121740007D505 /* ViewController.swift in Sources */,
 				1D0EDFF92A654EBF004868CD /* NewsTableViewCell.swift in Sources */,
+				1D974DF42A67D3F4005BE7C1 /* NewsCollectionViewCell.swift in Sources */,
 				1D0EDFF62A654E54004868CD /* ImageManager.swift in Sources */,
 				1D71E9F12A6130450007D505 /* Article.swift in Sources */,
 				1D71E9D12A6121740007D505 /* AppDelegate.swift in Sources */,
