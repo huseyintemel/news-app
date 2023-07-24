@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, NewsViewModelDelegate {
+class NewsViewController: UIViewController, NewsViewModelDelegate {
 
     var newsTableView = UITableView()
     var viewModel = NewsViewModel()
@@ -84,7 +84,7 @@ class ViewController: UIViewController, NewsViewModelDelegate {
 }
 
 
-extension ViewController: UITableViewDataSource {
+extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfNews()
     }
@@ -100,7 +100,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return viewModel.numberOfCollectionNews()
        }
