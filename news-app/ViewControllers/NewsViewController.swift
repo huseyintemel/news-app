@@ -6,12 +6,22 @@
 //
 
 import UIKit
+import Swinject
 
 class NewsViewController: UIViewController, NewsViewModelDelegate {
 
     var newsTableView = UITableView()
-    var viewModel = NewsViewModel()
-
+    var viewModel: NewsViewModel
+    
+    init(viewModel: NewsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal

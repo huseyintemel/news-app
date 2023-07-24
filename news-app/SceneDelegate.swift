@@ -19,7 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = NewsViewController()
+        
+        DependencyContainer.shared.registerViewModels()
+        let viewModel = DependencyContainer.shared.container.resolve(NewsViewModel.self)!
+        window?.rootViewController = NewsViewController(viewModel: viewModel)
+        
         window?.makeKeyAndVisible()
     }
 
