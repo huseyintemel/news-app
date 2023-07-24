@@ -23,7 +23,7 @@
 		1D805EE12A667AC2002D2885 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D805EE02A667AC2002D2885 /* NewsViewModel.swift */; };
 		1D974DF42A67D3F4005BE7C1 /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D974DF32A67D3F4005BE7C1 /* NewsCollectionViewCell.swift */; };
 		1DBB10CD2A6E986400614B61 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB10CC2A6E986400614B61 /* DependencyContainer.swift */; };
-		1DBB10D02A6E99D000614B61 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 1DBB10CF2A6E99D000614B61 /* Swinject */; };
+		1DBB10D32A6EA11500614B61 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 1DBB10D22A6EA11500614B61 /* Swinject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +52,7 @@
 			files = (
 				1D71E9EC2A612D4E0007D505 /* Kingfisher in Frameworks */,
 				1D71E9E92A612D350007D505 /* Alamofire in Frameworks */,
-				1DBB10D02A6E99D000614B61 /* Swinject in Frameworks */,
+				1DBB10D32A6EA11500614B61 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +164,7 @@
 			packageProductDependencies = (
 				1D71E9E82A612D350007D505 /* Alamofire */,
 				1D71E9EB2A612D4E0007D505 /* Kingfisher */,
-				1DBB10CF2A6E99D000614B61 /* Swinject */,
+				1DBB10D22A6EA11500614B61 /* Swinject */,
 			);
 			productName = "news-app";
 			productReference = 1D71E9CD2A6121740007D505 /* news-app.app */;
@@ -197,7 +197,7 @@
 			packageReferences = (
 				1D71E9E72A612D350007D505 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				1D71E9EA2A612D4E0007D505 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				1DBB10CE2A6E99D000614B61 /* XCRemoteSwiftPackageReference "Swinject" */,
+				1DBB10D12A6EA11400614B61 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = 1D71E9CE2A6121740007D505 /* Products */;
 			projectDirPath = "";
@@ -460,7 +460,7 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		1DBB10CE2A6E99D000614B61 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+		1DBB10D12A6EA11400614B61 /* XCRemoteSwiftPackageReference "Swinject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Swinject/Swinject.git";
 			requirement = {
@@ -481,9 +481,9 @@
 			package = 1D71E9EA2A612D4E0007D505 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		1DBB10CF2A6E99D000614B61 /* Swinject */ = {
+		1DBB10D22A6EA11500614B61 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1DBB10CE2A6E99D000614B61 /* XCRemoteSwiftPackageReference "Swinject" */;
+			package = 1DBB10D12A6EA11400614B61 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
 		};
 /* End XCSwiftPackageProductDependency section */
