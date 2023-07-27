@@ -106,6 +106,7 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableCell", for: indexPath) as! NewsTableViewCell
         
         let article = viewModel.article(at: indexPath.row)
+        cell.selectionStyle = .none
         cell.set(article: article)
         
         return cell
@@ -129,6 +130,7 @@ extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelega
            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCollectionCell", for: indexPath) as! NewsCollectionViewCell
            
            let article = viewModel.collectionArticle(at:indexPath.item)
+           cell.scrollIndicator.currentPage = indexPath.item
            cell.set(article: article)
                       
            return cell

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsCollectionViewCell: UICollectionViewCell {
+class NewsCollectionViewCell: UICollectionViewCell, UIScrollViewDelegate {
     
     lazy var newsImage = UIImageView()
     
@@ -23,11 +23,30 @@ class NewsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    lazy var scrollIndicator: UIPageControl = {
+        let indicator = UIPageControl(frame: .zero)
+        indicator.currentPage = 0
+        indicator.numberOfPages = 10
+        indicator.currentPageIndicatorTintColor = .green
+        indicator.pageIndicatorTintColor = .lightGray
+        return indicator
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
     override init(frame: CGRect){
         super.init(frame: frame)
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         addSubview(newsImage)
-        addSubview(newsTitleLabel)
+        addSubview(stackView)
+        addStackViewArrangedSubViews()
         setConstraints()
         
     }
@@ -36,16 +55,27 @@ class NewsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func addStackViewArrangedSubViews(){
+        stackView.addArrangedSubview(newsTitleLabel)
+        stackView.addArrangedSubview(scrollIndicator)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.bounds.width
+        let currentPage = Int((scrollView.contentOffset.x + pageWidth / 2) / pageWidth)
+        scrollIndicator.currentPage = currentPage
+    }
+    
     func setConstraints() {
         NSLayoutConstraint.activate([
             newsImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             newsImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             newsImage.topAnchor.constraint(equalTo: topAnchor),
             
-            newsTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            newsTitleLabel.topAnchor.constraint(equalTo: newsImage.bottomAnchor,constant: 10),
-            newsTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10),
-            newsTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.topAnchor.constraint(equalTo: newsImage.bottomAnchor,constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 
