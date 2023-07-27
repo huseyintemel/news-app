@@ -22,7 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         DependencyContainer.shared.registerViewModels()
         let viewModel = DependencyContainer.shared.container.resolve(NewsViewModel.self)!
-        window?.rootViewController = NewsViewController(viewModel: viewModel)
+        let viewController = NewsViewController(viewModel: viewModel)
+        
+        let navigationController = UINavigationController(rootViewController: viewController)
+        window?.rootViewController = navigationController
         
         window?.makeKeyAndVisible()
     }

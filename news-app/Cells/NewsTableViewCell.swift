@@ -65,8 +65,8 @@ class NewsTableViewCell: UITableViewCell {
     
     func set(article: Article) {
         guard let imageUrl = article.urlToImage else {
-            print("Error")
-            //newsImage.image = UIImage(named: "placeholder-news.jpg")
+            print("Image url is not available for this article.")
+            newsImage.image = UIImage(named: "placeholder-news.jpg")
             return
         }
         ImageManager.shared.setImage(url: imageUrl, imageView: newsImage)

@@ -40,6 +40,7 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        title = "News"
         newsTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(newsTableView)
         view.addSubview(collectionView)
@@ -59,6 +60,7 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
         }
         
         newsTableView.dataSource = self
+        newsTableView.delegate = self
         newsTableView.register(NewsTableViewCell.self, forCellReuseIdentifier: "NewsTableCell")
     }
 
@@ -94,7 +96,7 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
 }
 
 
-extension NewsViewController: UITableViewDataSource {
+extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfNews()
     }
@@ -108,6 +110,14 @@ extension NewsViewController: UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedNews = viewModel.article(at: indexPath.row)
+        let detailPage = NewsDetailViewController(article: selectedNews)
+        
+        self.navigationController?.pushViewController(detailPage, animated: true)
+    }
+    
 }
 
 extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
