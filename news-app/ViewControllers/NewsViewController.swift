@@ -40,7 +40,7 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "News"
+        title = NSLocalizedString("news_title", comment: "")
         newsTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(newsTableView)
         view.addSubview(collectionView)
