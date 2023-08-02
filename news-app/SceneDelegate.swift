@@ -20,13 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        DependencyContainer.shared.registerViewModels()
-        let viewModel = DependencyContainer.shared.container.resolve(NewsViewModel.self)!
-        let viewController = NewsViewController(viewModel: viewModel)
-        
-        let navigationController = UINavigationController(rootViewController: viewController)
-        window?.rootViewController = navigationController
-        
+        let tabBarViewController = TabBarViewController()
+        window?.rootViewController = tabBarViewController
         window?.makeKeyAndVisible()
     }
 

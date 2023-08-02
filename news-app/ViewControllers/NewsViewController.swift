@@ -116,7 +116,8 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         let selectedNews = viewModel.article(at: indexPath.row)
         let detailPage = NewsDetailViewController(article: selectedNews)
         
-        self.navigationController?.pushViewController(detailPage, animated: true)
+        detailPage.modalPresentationStyle = .popover
+        present(detailPage, animated: true,completion: nil)
     }
     
 }
