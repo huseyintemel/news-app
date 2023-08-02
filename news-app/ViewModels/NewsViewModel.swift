@@ -13,6 +13,7 @@ protocol NewsViewModelDelegate {
 
 class NewsViewModel {
     let apiKey = "7054e46161114bafaaeb518f3ddfaf09"
+    let baseURL = "https://newsapi.org/v2"
     var delegate: NewsViewModelDelegate?
     var articles : [Article] = []
     var collectionArticles : [Article] = []
@@ -26,7 +27,7 @@ class NewsViewModel {
     }
     
     func fetchData() async {
-        let url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(apiKey)"
+        let url = "\(baseURL)/top-headlines?country=us&sortBy=publishedAt&apiKey=\(apiKey)"
         NetworkManager.shared.request(News.self, url: url) { result in
             switch result {
             case .success(let newsAPIResponse):
@@ -39,7 +40,7 @@ class NewsViewModel {
     }
     
     func fetchCollectionData() async {
-        let url = "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=\(apiKey)"
+        let url = "\(baseURL)/top-headlines?sources=bbc-news&apiKey=\(apiKey)"
         NetworkManager.shared.request(News.self, url: url) { result in
             switch result {
             case .success(let newsAPIResponse):
