@@ -62,20 +62,20 @@ class NewsDetailViewController: UIViewController {
         
         titleLabel.text = article.title
         
-        guard let detailLabel = article.description else{
+        if let detailLabel = article.description {
+            newsDetailLabel.text = detailLabel
+        } else {
             newsDetailLabel.text = "No description"
-            return
+
         }
         
-        newsDetailLabel.text = detailLabel
-        
-        guard let imageUrl = article.urlToImage else {
+        if let imageUrl = article.urlToImage {
+            ImageManager.shared.setImage(url: imageUrl, imageView: newsImage)
+        } else {
             newsImage.image = UIImage(named: "placeholder-news.jpg")
             print("Detail page image error")
             return
         }
-        
-        ImageManager.shared.setImage(url: imageUrl, imageView: newsImage)
         
     }
     
