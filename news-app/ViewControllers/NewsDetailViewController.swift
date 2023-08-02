@@ -31,7 +31,6 @@ class NewsDetailViewController: UIViewController {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = article.title
         label.textColor = .darkGray
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.numberOfLines = 0
@@ -43,7 +42,6 @@ class NewsDetailViewController: UIViewController {
     
     lazy var newsDetailLabel: UILabel = {
         let label = UILabel()
-        label.text = article.description
         label.textColor = .darkGray
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 20)
@@ -60,14 +58,28 @@ class NewsDetailViewController: UIViewController {
         view.addSubview(newsImage)
         view.addSubview(titleLabel)
         view.addSubview(newsDetailLabel)
+        setConstraints()
+        
+        titleLabel.text = article.title
+        
+        guard let detailLabel = article.description else{
+            newsDetailLabel.text = "No description"
+            return
+        }
+        
+        newsDetailLabel.text = detailLabel
         
         guard let imageUrl = article.urlToImage else {
-            print("Error")
+            newsImage.image = UIImage(named: "placeholder-news.jpg")
+            print("Detail page image error")
             return
         }
         
         ImageManager.shared.setImage(url: imageUrl, imageView: newsImage)
         
+    }
+    
+    func setConstraints() {
         NSLayoutConstraint.activate([
             newsImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             newsImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -83,8 +95,6 @@ class NewsDetailViewController: UIViewController {
             newsDetailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -8),
         
         ])
-        
     }
-    
     
 }
