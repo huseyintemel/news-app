@@ -64,16 +64,17 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     func set(article: Article) {
+        titleLabel.text = article.title
+        let formattedTime = article.publishedAt.getTimeAgo()
+        timeLabel.text = formattedTime
+        sourceLabel.text = article.source.name
+        
         guard let imageUrl = article.urlToImage else {
             print("Image url is not available for this article.")
             newsImage.image = UIImage(named: "placeholder-news.jpg")
             return
         }
         ImageManager.shared.setImage(url: imageUrl, imageView: newsImage)
-        titleLabel.text = article.title
-        let formattedTime = article.publishedAt.getTimeAgo()
-        timeLabel.text = formattedTime
-        sourceLabel.text = article.source.name
     }
     
     func configureNewsImage() {

@@ -80,13 +80,13 @@ class NewsCollectionViewCell: UICollectionViewCell, UIScrollViewDelegate {
     }
 
     func set(article: Article) {
+        newsTitleLabel.text = article.title
         guard let imageUrl = article.urlToImage else {
             print("Error")
-            //newsImage.image = UIImage(named: "placeholder-news.jpg")
+            newsImage.image = UIImage(named: "placeholder-news.jpg")
             return
         }
         ImageManager.shared.setImage(url: imageUrl, imageView: newsImage)
-        newsTitleLabel.text = article.title
     }
     
 }
