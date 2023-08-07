@@ -17,6 +17,7 @@ class NewsViewModel {
     var delegate: NewsViewModelDelegate?
     var articles : [Article] = []
     var collectionArticles : [Article] = []
+    var searchArticles: [Article] = []
     
     func numberOfNews() -> Int {
         return articles.count
@@ -24,6 +25,10 @@ class NewsViewModel {
     
     func numberOfCollectionNews() -> Int {
         return collectionArticles.count
+    }
+    
+    func numberOfSearchNews() -> Int {
+        return searchArticles.count
     }
     
     func fetchData() async {
@@ -52,6 +57,19 @@ class NewsViewModel {
         }
     }
     
+    func searchArticlesData(query: String) async {
+        let url = "\(baseURL)/everything?q=\(query)&language=en&pageSize=20&apiKey=\(apiKey)"
+        NetworkManager.shared.request(News.self,url: url) { result in
+            switch result {
+            case .success(let newsAPIResponse):
+                self.searchArticles = newsAPIResponse.articles
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+            }
+            self.delegate?.viewModelDidUpdateData()
+        }
+    }
+    
     func article(at index: Int) -> Article {
            return articles[index]
     }
@@ -60,5 +78,8 @@ class NewsViewModel {
            return collectionArticles[item]
     }
     
+    func searchArticle(at index: Int) -> Article {
+           return searchArticles[index]
+    }
 }
 

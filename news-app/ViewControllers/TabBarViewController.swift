@@ -18,7 +18,7 @@ class TabBarViewController: UITabBarController {
             
         firstViewController.tabBarItem = UITabBarItem(title: "News", image: UIImage(systemName: "house"), tag: 0)
             
-        let secondViewController = SearchViewController()
+        let secondViewController = UINavigationController(rootViewController: SearchViewController(viewModel: viewModel))
         secondViewController.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 1)
             
             
