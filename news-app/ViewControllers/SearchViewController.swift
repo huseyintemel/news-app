@@ -28,7 +28,7 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchBar
     
     let noResultLabel: UILabel = {
         let label = UILabel()
-        label.text = "Type something and search it!"
+        label.text = NSLocalizedString("search_table_text", comment: "")
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 20)
         
@@ -41,7 +41,7 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchBar
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Search"
+        title = NSLocalizedString("search_title", comment: "title")
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
 

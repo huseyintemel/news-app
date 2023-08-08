@@ -16,10 +16,10 @@ class TabBarViewController: UITabBarController {
         let viewModel = DependencyContainer.shared.container.resolve(NewsViewModel.self)!
         let firstViewController = NewsViewController(viewModel: viewModel)
             
-        firstViewController.tabBarItem = UITabBarItem(title: "News", image: UIImage(systemName: "house"), tag: 0)
+        firstViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("news_title", comment: ""), image: UIImage(systemName: "house"), tag: 0)
             
         let secondViewController = UINavigationController(rootViewController: SearchViewController(viewModel: viewModel))
-        secondViewController.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 1)
+        secondViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("search_title", comment: ""), image: UIImage(systemName: "magnifyingglass"), tag: 1)
             
             
         self.viewControllers = [firstViewController,secondViewController]
