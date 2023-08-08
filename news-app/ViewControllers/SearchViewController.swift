@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchResultsUpdating {
+class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchBarDelegate {
   
     var viewModel: NewsViewModel
     
@@ -26,6 +26,16 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchRes
         return tableView
     }()
     
+    let noResultLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Type something and search it!"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
@@ -39,12 +49,14 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchRes
         newsTable.rowHeight = 400
         newsTable.register(SearchNewsTableViewCell.self, forCellReuseIdentifier: "SearchNewsCell")
         newsTable.dataSource = self
-        searchController.searchResultsUpdater = self
+        newsTable.delegate = self
         
         view.addSubview(newsTable)
+        view.addSubview(noResultLabel)
         setConstraints()
         
         viewModel.delegate = self
+        searchController.searchBar.delegate = self
     }
     
     
@@ -54,23 +66,14 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchRes
             newsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             newsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             newsTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            noResultLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 20),
+            noResultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
     
     func fetchSearchData(query: String) async {
         await viewModel.searchArticlesData(query: query)
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text else {
-            return
-        }
-
-        // Call the data fetch with the updated query
-        Task {
-            await viewModel.searchArticlesData(query: query)
-            self.newsTable.reloadData()
-        }
     }
     
     func viewModelDidUpdateData() {
@@ -81,7 +84,7 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchRes
 
 }
 
-extension SearchViewController: UITableViewDataSource {
+extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfSearchNews()
@@ -96,5 +99,34 @@ extension SearchViewController: UITableViewDataSource {
         cell.set(article: article)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedNews = viewModel.searchArticle(at: indexPath.row)
+        let detailPage = NewsDetailViewController(article: selectedNews)
+        
+        detailPage.modalPresentationStyle = .popover
+        present(detailPage, animated: true,completion: nil)
+    }
+}
+
+
+extension SearchViewController {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text, !searchText.isEmpty {
+            Task {
+                noResultLabel.isHidden = true
+                newsTable.isHidden = false
+                await viewModel.searchArticlesData(query: searchText)
+                self.newsTable.reloadData()
+                
+            }
+        }
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        noResultLabel.isHidden = false
+        newsTable.isHidden = true
     }
 }
