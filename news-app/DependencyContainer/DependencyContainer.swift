@@ -15,5 +15,8 @@ class DependencyContainer {
         container.register(NewsViewModel.self) { _ in
             NewsViewModel()
         }
+        container.register(CategoryViewModel.self) { _ in
+            CategoryViewModel()
+        }
     }
 }
