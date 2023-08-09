@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CategoryViewModelDelegate {
+    func viewModelDidUpdateData()
+}
+
 class CategoryViewModel {
     
     let categoryCollectionData = [
@@ -19,7 +23,8 @@ class CategoryViewModel {
     
     let apiKey = "7054e46161114bafaaeb518f3ddfaf09"
     let baseURL = "https://newsapi.org/v2"
-    var articles : [Article] = []
+    var delegate: CategoryViewModelDelegate?
+    var categoryArticles : [Article] = []
     
     func numberOfCategories() -> Int {
         return categoryCollectionData.count
@@ -27,5 +32,26 @@ class CategoryViewModel {
     
     func collectionCategory(at item: Int) -> Category {
            return categoryCollectionData[item]
+    }
+    
+    func numberOfNews() -> Int {
+        return categoryArticles.count
+    }
+    
+    func fetchCategoryData(category: String) async {
+        let url = "https://newsapi.org/v2/top-headlines?country=us&category=\(category)&apiKey=7054e46161114bafaaeb518f3ddfaf09"
+        NetworkManager.shared.request(News.self, url: url) { result in
+            switch result {
+            case .success(let newsAPIResponse):
+                self.categoryArticles = newsAPIResponse.articles
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+            }
+            self.delegate?.viewModelDidUpdateData()
+        }
+    }
+    
+    func article(at index: Int) -> Article {
+           return categoryArticles[index]
     }
 }

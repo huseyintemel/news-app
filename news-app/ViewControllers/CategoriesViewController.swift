@@ -74,4 +74,12 @@ extension CategoriesViewController: UICollectionViewDataSource, UICollectionView
             let itemWidth = (collectionView.bounds.width - 16) / 2
             return CGSize(width: itemWidth, height: itemWidth)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCategory = viewModel.collectionCategory(at: indexPath.item)
+        let categoryType = selectedCategory.type
+        
+        navigationController?.pushViewController(CategoryDetailViewController(categoryType: categoryType,viewModel: viewModel), animated: true)
+    }
+    
 }
