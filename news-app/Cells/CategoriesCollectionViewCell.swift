@@ -52,7 +52,7 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(category: Category) {
-        label.text = category.name
+        label.text = LocalizeHelper.shared.localizeCategoryTitle(categoryType: category.name.lowercased())
         imageView.image = category.image
     }
 }

@@ -25,7 +25,7 @@ class CategoryDetailViewController: UIViewController, CategoryViewModelDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = categoryType.capitalized
+        title = LocalizeHelper.shared.localizeCategoryTitle(categoryType: categoryType)
         
         view.addSubview(categoryTable)
         categoryTable.translatesAutoresizingMaskIntoConstraints = false

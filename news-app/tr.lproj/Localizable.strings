@@ -10,3 +10,8 @@
 "search_title" = "Ara";
 "search_table_text" = "Bir şeyler yazın ve arayın!";
 "categories_text" = "Kategoriler";
+"category_business" = "İş";
+"category_sports" = "Spor";
+"category_science" = "Bilim";
+"category_technology" = "Teknoloji";
+"category_entertainment" = "Eğlence";

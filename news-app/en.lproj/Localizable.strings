@@ -10,3 +10,8 @@
 "search_title" = "Search";
 "search_table_text" = "Type something and search it!";
 "categories_text" = "Categories";
+"category_business" = "Business";
+"category_sports" = "Sports";
+"category_science" = "Science";
+"category_technology" = "Technology";
+"category_entertainment" = "Entertainment";
