@@ -25,6 +25,8 @@
 		1D82E6E92A72599800726F27 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D82E6E82A72599800726F27 /* NewsDetailViewController.swift */; };
 		1D830D4E2A7A748200913906 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D830D4D2A7A748200913906 /* TabBarViewController.swift */; };
 		1D830D502A7A74E600913906 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D830D4F2A7A74E600913906 /* SearchViewController.swift */; };
+		1D87F46E2A8639D8008A0F5A /* NewsTablePlaceHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D87F46D2A8639D8008A0F5A /* NewsTablePlaceHolderCell.swift */; };
+		1D87F4732A864A25008A0F5A /* CollectionViewCellPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D87F4722A864A25008A0F5A /* CollectionViewCellPlaceHolder.swift */; };
 		1D88E5EC2A824D1E00BF77A3 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D88E5EB2A824D1E00BF77A3 /* CategoriesViewController.swift */; };
 		1D8CFD1B2A84F190004D0432 /* LocalizeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8CFD1A2A84F190004D0432 /* LocalizeHelper.swift */; };
 		1D9662172A7BBCA200E26B4C /* SearchNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9662162A7BBCA200E26B4C /* SearchNewsTableViewCell.swift */; };
@@ -58,6 +60,8 @@
 		1D82E6E82A72599800726F27 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		1D830D4D2A7A748200913906 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		1D830D4F2A7A74E600913906 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		1D87F46D2A8639D8008A0F5A /* NewsTablePlaceHolderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTablePlaceHolderCell.swift; sourceTree = "<group>"; };
+		1D87F4722A864A25008A0F5A /* CollectionViewCellPlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellPlaceHolder.swift; sourceTree = "<group>"; };
 		1D88E5EB2A824D1E00BF77A3 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		1D8CFD1A2A84F190004D0432 /* LocalizeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizeHelper.swift; sourceTree = "<group>"; };
 		1D9662162A7BBCA200E26B4C /* SearchNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 			children = (
 				1D71E9ED2A612E1E0007D505 /* Model */,
 				1D71E9E42A6127FC0007D505 /* Helpers */,
+				1D87F46F2A86439B008A0F5A /* PlaceHolders */,
 				1D0EDFF72A654E93004868CD /* Cells */,
 				1DBB10CB2A6E982300614B61 /* DependencyContainer */,
 				1D805EDF2A667AA4002D2885 /* ViewModels */,
@@ -159,6 +164,15 @@
 				1D9B98712A83868800A2896C /* CategoryViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		1D87F46F2A86439B008A0F5A /* PlaceHolders */ = {
+			isa = PBXGroup;
+			children = (
+				1D87F46D2A8639D8008A0F5A /* NewsTablePlaceHolderCell.swift */,
+				1D87F4722A864A25008A0F5A /* CollectionViewCellPlaceHolder.swift */,
+			);
+			path = PlaceHolders;
 			sourceTree = "<group>";
 		};
 		1D90ADEF2A6E8D4E008EDB8A /* ViewControllers */ = {
@@ -273,6 +287,8 @@
 				1D9B98742A838E0B00A2896C /* CategoryDetailViewController.swift in Sources */,
 				1D974DF42A67D3F4005BE7C1 /* NewsCollectionViewCell.swift in Sources */,
 				1D88E5EC2A824D1E00BF77A3 /* CategoriesViewController.swift in Sources */,
+				1D87F4732A864A25008A0F5A /* CollectionViewCellPlaceHolder.swift in Sources */,
+				1D87F46E2A8639D8008A0F5A /* NewsTablePlaceHolderCell.swift in Sources */,
 				1D830D4E2A7A748200913906 /* TabBarViewController.swift in Sources */,
 				1D8CFD1B2A84F190004D0432 /* LocalizeHelper.swift in Sources */,
 				1D0EDFF62A654E54004868CD /* ImageManager.swift in Sources */,

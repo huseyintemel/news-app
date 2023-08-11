@@ -11,6 +11,7 @@ class CategoryDetailViewController: UIViewController, CategoryViewModelDelegate 
     var categoryType: String
     var categoryTable = UITableView()
     var viewModel: CategoryViewModel
+    var isLoading = true
         
     init(categoryType: String,viewModel: CategoryViewModel) {
         self.categoryType = categoryType
@@ -30,6 +31,9 @@ class CategoryDetailViewController: UIViewController, CategoryViewModelDelegate 
         view.addSubview(categoryTable)
         categoryTable.translatesAutoresizingMaskIntoConstraints = false
         categoryTable.dataSource = self
+        categoryTable.rowHeight = UITableView.automaticDimension
+        categoryTable.rowHeight = 400
+        categoryTable.register(NewsTablePlaceHolderCell.self, forCellReuseIdentifier: "PlaceHolderCell")
         categoryTable.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryNewsCell")
 
         setConstraints()
@@ -55,6 +59,7 @@ class CategoryDetailViewController: UIViewController, CategoryViewModelDelegate 
     }
     
     func viewModelDidUpdateData() {
+        isLoading = false
         Task {
             self.categoryTable.reloadData()
         }
@@ -65,17 +70,23 @@ class CategoryDetailViewController: UIViewController, CategoryViewModelDelegate 
 
 extension CategoryDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfNews()
+        return isLoading ? 10 : viewModel.numberOfNews()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryNewsCell",for: indexPath) as! CategoryTableViewCell
-        
-        let article = viewModel.article(at: indexPath.row)
-        cell.selectionStyle = .none
-        cell.set(article: article)
-        
-        return cell
+        if isLoading {
+            let placeHolderCell = tableView.dequeueReusableCell(withIdentifier: "PlaceHolderCell", for: indexPath) as! NewsTablePlaceHolderCell
+            
+            return placeHolderCell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryNewsCell",for: indexPath) as! CategoryTableViewCell
+            
+            let article = viewModel.article(at: indexPath.row)
+            cell.selectionStyle = .none
+            cell.set(article: article)
+            
+            return cell
+        }
     }
     
 }

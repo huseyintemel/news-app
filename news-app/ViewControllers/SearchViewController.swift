@@ -10,6 +10,7 @@ import UIKit
 class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchBarDelegate {
   
     var viewModel: NewsViewModel
+    var isLoading = false
     
     init(viewModel: NewsViewModel) {
         self.viewModel = viewModel
@@ -47,6 +48,7 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchBar
 
         newsTable.rowHeight = UITableView.automaticDimension
         newsTable.rowHeight = 400
+        newsTable.register(NewsTablePlaceHolderCell.self, forCellReuseIdentifier: "PlaceHolderCell")
         newsTable.register(SearchNewsTableViewCell.self, forCellReuseIdentifier: "SearchNewsCell")
         newsTable.dataSource = self
         newsTable.delegate = self
@@ -77,6 +79,7 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchBar
     }
     
     func viewModelDidUpdateData() {
+        isLoading = false
         Task {
             self.newsTable.reloadData()
         }
@@ -87,18 +90,23 @@ class SearchViewController: UIViewController, NewsViewModelDelegate, UISearchBar
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfSearchNews()
+        return isLoading ? 10 : viewModel.numberOfSearchNews()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchNewsCell", for: indexPath) as! SearchNewsTableViewCell
-        
-        
-        let article = viewModel.searchArticle(at: indexPath.row)
-        cell.selectionStyle = .none
-        cell.set(article: article)
-        
-        return cell
+        if isLoading {
+            let placeHolderCell = tableView.dequeueReusableCell(withIdentifier: "PlaceHolderCell", for: indexPath) as! NewsTablePlaceHolderCell
+            
+            return placeHolderCell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchNewsCell", for: indexPath) as! SearchNewsTableViewCell
+            
+            let article = viewModel.searchArticle(at: indexPath.row)
+            cell.selectionStyle = .none
+            cell.set(article: article)
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -116,6 +124,7 @@ extension SearchViewController {
         if let searchText = searchBar.text, !searchText.isEmpty {
             Task {
                 noResultLabel.isHidden = true
+                isLoading = true
                 newsTable.isHidden = false
                 await viewModel.searchArticlesData(query: searchText)
                 self.newsTable.reloadData()

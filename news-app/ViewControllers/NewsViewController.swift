@@ -12,6 +12,7 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
 
     var newsTableView = UITableView()
     var viewModel: NewsViewModel
+    var isLoading = true
     
     init(viewModel: NewsViewModel) {
         self.viewModel = viewModel
@@ -45,8 +46,14 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
         view.addSubview(newsTableView)
         view.addSubview(collectionView)
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: "NewsCollectionCell")
+        collectionView.register(CollectionViewCellPlaceHolder.self, forCellWithReuseIdentifier: "CollectionPlaceHolder")
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        newsTableView.dataSource = self
+        newsTableView.delegate = self
+        newsTableView.register(NewsTableViewCell.self, forCellReuseIdentifier: "NewsTableCell")
+        newsTableView.register(NewsTablePlaceHolderCell.self, forCellReuseIdentifier: "PlaceHolderCell")
         newsTableView.rowHeight = UITableView.automaticDimension
         newsTableView.rowHeight = 400
         newsTableView.separatorInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
@@ -59,9 +66,6 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
             await fetchCollectionData()
         }
         
-        newsTableView.dataSource = self
-        newsTableView.delegate = self
-        newsTableView.register(NewsTableViewCell.self, forCellReuseIdentifier: "NewsTableCell")
     }
 
     
@@ -88,6 +92,7 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
     }
     
     func viewModelDidUpdateData() {
+        isLoading = false
         Task {
             self.newsTableView.reloadData()
             self.collectionView.reloadData()
@@ -98,18 +103,23 @@ class NewsViewController: UIViewController, NewsViewModelDelegate {
 
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfNews()
+        return isLoading ? 10 : viewModel.numberOfNews()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableCell", for: indexPath) as! NewsTableViewCell
-        
-        let article = viewModel.article(at: indexPath.row)
-        cell.selectionStyle = .none
-        cell.set(article: article)
-        
-        return cell
+        if isLoading {
+            let placeHolderCell = tableView.dequeueReusableCell(withIdentifier: "PlaceHolderCell", for: indexPath) as! NewsTablePlaceHolderCell
+            
+            return placeHolderCell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableCell", for: indexPath) as! NewsTableViewCell
+            
+            let article = viewModel.article(at: indexPath.row)
+            cell.selectionStyle = .none
+            cell.set(article: article)
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -124,17 +134,23 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return viewModel.numberOfCollectionNews()
+            return isLoading ? 10 : viewModel.numberOfCollectionNews()
        }
        
        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCollectionCell", for: indexPath) as! NewsCollectionViewCell
-           
-           let article = viewModel.collectionArticle(at:indexPath.item)
-           cell.scrollIndicator.currentPage = indexPath.item
-           cell.set(article: article)
-                      
-           return cell
+           if isLoading {
+               let placeHolderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionPlaceHolder", for: indexPath) as! CollectionViewCellPlaceHolder
+               
+               return placeHolderCell
+           } else {
+               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCollectionCell", for: indexPath) as! NewsCollectionViewCell
+               
+               let article = viewModel.collectionArticle(at:indexPath.item)
+               cell.scrollIndicator.currentPage = indexPath.item
+               cell.set(article: article)
+                          
+               return cell
+           }
        }
        
        // MARK: - UICollectionViewDelegateFlowLayout
